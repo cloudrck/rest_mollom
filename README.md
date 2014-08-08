@@ -16,9 +16,30 @@ Or install it yourself as:
 
     $ gem install rest_mollom
 
+
 ## Usage
 
-TODO: Write usage instructions here
+After you have requested a public/private key-pair from Mollom (on http://www.mollom.com), you can start using this class.
+
+    require 'rubygems'
+    require 'mollom'
+  
+    m = Mollom.new(:private_key => 'your-private-key', :public_key => 'your-public-key')
+
+    content = m.check_content(:post_title => 'Mollem is an open API', 
+							:post_body => "Lorem Ipsum dolor...",
+							:author_name => 'Jan De Poorter',
+							:author_url => 'http://workswithruby.com')
+    if content.spam?
+    	puts "You, sir, are a spammer.. Goodbye!"
+     elsif content.unsure?
+       # possible spam, possible ham, show CAPTCHA
+       puts "CAPTCHA: " + m.image_captcha(:session_id => content.session_id)["url"]
+    
+      captcha_correct = m.check_captcha(:session_id => content.session_id, :solution => STDIN.gets.chomp)
+    else
+      puts "The post is perfect! No spam!"
+    end
 
 ## Contributing
 
