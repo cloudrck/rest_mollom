@@ -22,9 +22,9 @@ Or install it yourself as:
 After you have requested a public/private key-pair from Mollom (on http://www.mollom.com), you can start using this class.
 
     require 'rubygems'
-    require 'mollom'
+    require 'rest_mollom'
   
-    m = Mollom.new(:private_key => 'your-private-key', :public_key => 'your-public-key')
+    m = RMollom.new(:private_key => 'your-private-key', :public_key => 'your-public-key')
 
     content = m.check_content(:post_title => 'Mollem is an open API', 
 							:post_body => "Lorem Ipsum dolor...",
